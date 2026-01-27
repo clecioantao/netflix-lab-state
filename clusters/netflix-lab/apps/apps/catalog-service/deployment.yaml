@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-service
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catalog-service
+  template:
+    metadata:
+      labels:
+        app: catalog-service
+    spec:
+      containers:
+        - name: catalog-service
+          image: hashicorp/http-echo:1.0
+          args:
+            - "-listen=:8081"
+            - "-text={\"items\":[\"The Platform Show\",\"Kindflix Originals\",\"GitOps Nights\"]}"
+          ports:
+            - containerPort: 8081
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8081
+            initialDelaySeconds: 2
+            periodSeconds: 5
