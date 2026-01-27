@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: netflix-lab-root
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: REPO_URL_AQUI
+    targetRevision: main
+    path: clusters/netflix-lab/apps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
