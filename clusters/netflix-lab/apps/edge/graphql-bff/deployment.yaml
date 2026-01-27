@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graphql-bff
+  namespace: edge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: graphql-bff
+  template:
+    metadata:
+      labels:
+        app: graphql-bff
+    spec:
+      containers:
+        - name: graphql-bff
+          image: graphql-bff:0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          env:
+            - name: PORT
+              value: "4000"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 4000
+            initialDelaySeconds: 3
+            periodSeconds: 5
