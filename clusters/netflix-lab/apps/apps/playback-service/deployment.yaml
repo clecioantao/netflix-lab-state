@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playback-service
+  namespace: streaming
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: playback-service
+  template:
+    metadata:
+      labels:
+        app: playback-service
+    spec:
+      containers:
+        - name: playback-service
+          image: hashicorp/http-echo:1.0
+          args:
+            - "-listen=:8090"
+            - "-text={\"streamUrl\":\"https://cdn.local/stream/1.m3u8\",\"quality\":\"1080p\",\"cdn\":\"kindflix-cdn\"}"
+          ports:
+            - containerPort: 8090
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8090
+            initialDelaySeconds: 2
+            periodSeconds: 5
+            timeoutSeconds: 2

@@ -4,3 +4,6 @@ resources:
   - catalog-service/namespace.yaml
   - catalog-service/deployment.yaml
   - catalog-service/service.yaml
+  - playback-service/namespace.yaml
+  - playback-service/deployment.yaml
+  - playback-service/service.yaml
