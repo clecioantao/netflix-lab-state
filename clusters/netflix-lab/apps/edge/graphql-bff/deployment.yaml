@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: graphql-bff
-          image: graphql-bff:0.1.5
+          image: graphql-bff:0.1.6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 4000
@@ -24,6 +24,8 @@ spec:
               value: "4000"
             - name: CATALOG_URL
               value: "http://catalog-service.apps.svc.cluster.local:8081/"
+            - name: PLAYBACK_URL
+              value: "http://playback-service.streaming.svc.cluster.local:8090/"
           readinessProbe:
             httpGet:
               path: /healthz
