@@ -7,4 +7,3 @@ resources:
   - playback-service/namespace.yaml
   - playback-service/deployment.yaml
   - playback-service/service.yaml
-  - playback-service/ingress.yaml
