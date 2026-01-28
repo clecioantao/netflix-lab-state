@@ -15,16 +15,24 @@ spec:
     spec:
       containers:
         - name: playback-service
-          image: hashicorp/http-echo:1.0
-          args:
-            - "-listen=:8090"
-            - "-text={\"streamUrl\":\"https://cdn.local/stream/1.m3u8\",\"quality\":\"1080p\",\"cdn\":\"kindflix-cdn\"}"
+          image: playback-service:0.1.0
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8090
+          env:
+            - name: PORT
+              value: "8090"
           readinessProbe:
             httpGet:
-              path: /
+              path: /healthz
               port: 8090
             initialDelaySeconds: 2
             periodSeconds: 5
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8090
+            initialDelaySeconds: 10
+            periodSeconds: 10
             timeoutSeconds: 2
