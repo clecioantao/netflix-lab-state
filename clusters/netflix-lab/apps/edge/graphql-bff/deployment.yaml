@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: graphql-bff
-          image: graphql-bff:0.1.4
+          image: graphql-bff:0.1.5
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 4000
